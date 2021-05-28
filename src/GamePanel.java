@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
+	Rocketship r;
 	Timer frameDraw;
 	Font titleFont;
 	Font subTitleFont;
@@ -18,6 +19,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	final int END = 2;
 	int currentState = MENU;
 	GamePanel(){
+		r = new Rocketship(250,700, 50,50);
 		 titleFont = new Font("Arial", Font.PLAIN, 48);
 		 subTitleFont = new Font("Arial", Font.PLAIN, 24);
 		 frameDraw = new Timer(1000/60,this);
@@ -48,8 +50,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		 
 	 }
 	 void drawGameState(Graphics g) {
+		 
 		 g.setColor(Color.BLACK);
 		 g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		 r.draw(g);
 	 }
 	 void drawEndState(Graphics g) {
 		 g.setColor(Color.RED);
@@ -71,7 +75,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		}else if(currentState == END){
 		    updateEndState();
 		}
-		System.out.println("action");
+		
 		repaint();
 		
 	}
@@ -86,14 +90,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		    }
 		
 		}
-		if (e.getKeyCode()==KeyEvent.VK_UP && currentState == GAME) {
-		    System.out.println("UP");
-		}else if (e.getKeyCode()==KeyEvent.VK_DOWN && currentState == GAME) {
-			System.out.println("DOWN");
-		}else if (e.getKeyCode()==KeyEvent.VK_RIGHT && currentState == GAME) {
-			System.out.println("RIGHT");
-		}else if(e.getKeyCode()==KeyEvent.VK_LEFT && currentState == GAME) {
-			System.out.println("LEFT");
+		if (e.getKeyCode()==KeyEvent.VK_UP && currentState == GAME && (r.y < 800 && r.y > 0 )) {
+		    r.up();
+		}else if (e.getKeyCode()==KeyEvent.VK_DOWN && currentState == GAME && (r.y < 710)) {
+			
+			r.down();
+		}else if (e.getKeyCode()==KeyEvent.VK_RIGHT && currentState == GAME && ( r.x < 435 )) {
+			
+			r.right();
+		}else if(e.getKeyCode()==KeyEvent.VK_LEFT && currentState == GAME && ( r.x > 0 )) {
+			
+			r.left();
 		}
 	}
 	@Override
