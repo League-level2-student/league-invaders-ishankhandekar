@@ -21,6 +21,7 @@ public class LeagueInvaders {
 	
 	public void setup() {
 		j.setSize(WIDTH, HEIGHT);
+		
 		j.setVisible(true);
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
